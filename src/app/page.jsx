@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 import LoaderScreen from "@/components/screens/LoaderScreen";
@@ -10,16 +10,28 @@ import PhotosScreen from "@/components/screens/PhotosScreen";
 import MessageScreen from "@/components/screens/MessageScreen";
 
 export default function HomePage() {
-  const [currentScreen, setCurrentScreen] = useState(0);
 
-  // ⬇️ MUSIC PLAYER
+  // ----------------------------
+  // 🔐 PASSWORD CHECK
+  // ----------------------------
+  useEffect(() => {
+    const loggedIn = localStorage.getItem("auth");
+    if (!loggedIn) {
+      window.location.href = "/login";
+    }
+  }, []);
+
+  // ----------------------------
+  // 🎵 MUSIC + SCREENS LOGIC
+  // ----------------------------
+  const [currentScreen, setCurrentScreen] = useState(0);
   const audioRef = useRef(null);
 
   const startMusic = () => {
     if (!audioRef.current) {
       audioRef.current = new Audio("/bdaymusic2.mp3");
-      audioRef.current.loop = true; // Keeps music playing
-      audioRef.current.volume = 0.5; // (optional)
+      audioRef.current.loop = true;
+      audioRef.current.volume = 0.5;
     }
     audioRef.current.play();
   };
@@ -27,11 +39,10 @@ export default function HomePage() {
   const screens = [
     <LoaderScreen key="loader" onDone={() => setCurrentScreen(1)} />,
 
-    // ⬇️ When user clicks Start, music will play
     <IntroScreen
       key="intro"
       onNext={() => {
-        startMusic();      // <-- START MUSIC HERE
+        startMusic();
         setCurrentScreen(2);
       }}
     />,
@@ -60,6 +71,7 @@ export default function HomePage() {
         </AnimatePresence>
       </div>
 
+      {/* Watermark */}
       <motion.div
         initial={{ x: 100, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
