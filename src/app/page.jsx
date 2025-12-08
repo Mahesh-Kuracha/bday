@@ -11,9 +11,7 @@ import MessageScreen from "@/components/screens/MessageScreen";
 
 export default function HomePage() {
 
-  // ----------------------------
-  // 🔐 PASSWORD CHECK
-  // ----------------------------
+  // 🔐 PASSWORD PROTECTION
   useEffect(() => {
     const loggedIn = localStorage.getItem("auth");
     if (!loggedIn) {
@@ -21,9 +19,8 @@ export default function HomePage() {
     }
   }, []);
 
-  // ----------------------------
-  // 🎵 MUSIC + SCREENS LOGIC
-  // ----------------------------
+
+  // 🎵 MUSIC + SCREEN LOGIC
   const [currentScreen, setCurrentScreen] = useState(0);
   const audioRef = useRef(null);
 
@@ -71,7 +68,6 @@ export default function HomePage() {
         </AnimatePresence>
       </div>
 
-      {/* Watermark */}
       <motion.div
         initial={{ x: 100, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}

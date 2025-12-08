@@ -6,7 +6,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const correctPassword = "lakshmimahesh"; // Change this to your password
+  const correctPassword = "LakshmiMahesh@143"; // Change this to your password
 
   const handleLogin = () => {
     if (password === correctPassword) {
