@@ -1,7 +1,15 @@
 "use client";
 
-export default function Logout() {
-  localStorage.removeItem("auth");
-  window.location.href = "/login";
-  return null;
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+
+export default function LogoutPage() {
+  const router = useRouter();
+
+  useEffect(() => {
+    localStorage.removeItem("auth");
+    router.replace("/login");
+  }, [router]);
+
+  return null; // required so React doesn't complain
 }
